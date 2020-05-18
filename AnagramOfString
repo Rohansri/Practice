@@ -1,0 +1,41 @@
+bool insistcomparator(int counttxtW[],int countPat[])
+    {
+         for (int i=0; i<256; i++) 
+        if (counttxtW[i] != countPat[i]) 
+            return false; 
+    return true; 
+    }
+    
+    
+   vector<int> findAnagrams(string txt,string pat)
+{
+       
+	int counttxtW[256]={0},countPat[256]={0};
+	int M=pat.length(),N=txt.length();
+       vector<int> ans;
+       if(M>N )
+           return ans;
+     
+	for(int i=0;i<M;i++)
+	{
+		counttxtW[txt[i]]++;
+		countPat[pat[i]]++;
+
+	}
+
+	for(int i=M;i<N;i++)
+	{
+		if(insistcomparator(counttxtW,countPat))
+            ans.push_back(i-M);
+
+		(counttxtW[txt[i]])++;
+		
+		counttxtW[txt[i-M]]--;
+
+
+	}
+
+	if(insistcomparator(countPat,counttxtW))
+          ans.push_back(N-M);
+    return ans;
+}
